@@ -24,6 +24,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationTitle("Movies")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
