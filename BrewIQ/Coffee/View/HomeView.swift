@@ -14,21 +14,31 @@ struct HomeView: View {
         @State private var caffeineLevel: Double = 50 // Default caffeine level
         @State private var cupSize: String = "Medium (350mL)"
         @State private var coffeeSuggestion: String = ""
+   
         
         // Mood options
         let moods = ["😊 Relaxed", "😴 Tired", "🤔 Focused", "😄 Happy", "😌 Calm"]
         let cupSizes = ["Small (200mL)", "Medium (350mL)", "Large (500mL)"]
+        let coffeeController = CoffeeController()
+    
         
     
     var body: some View {
         VStack(spacing: 20) {
                       // Welcome Header
-                      Text("Hello! What’s your coffee mood today?")
-                          .font(.title2)
-                          .fontWeight(.semibold)
-                          .multilineTextAlignment(.center)
-                          .padding()
-                      
+          
+            VStack {
+                Text(CoffeeController.getGreeting())
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                    
+                Text("What’s your coffee mood today?")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                  
+            } .padding()
                       // Mood Selector
                       VStack(alignment: .leading) {
                           Text("Select Your Mood:")
@@ -78,18 +88,13 @@ struct HomeView: View {
                       
                       // Suggestion Button
                       Button(action: {
-                          //instance of CoffeeController
-                        let coffeeController = CoffeController(
-                                             selectedMood: selectedMood,
-                                             caffeineLevel: caffeineLevel,
-                                             cupSize: cupSize
-                                         )
-                          
+                         
                           // Call SuggestCoffee method and update the suggestion
-                        coffeeSuggestion = coffeeController.SuggestCoffee(
-                                              selectedMood: selectedMood,
+                            coffeeSuggestion = coffeeController.SuggestCoffee(
+                                selectedMood: selectedMood,
                                               caffeineLevel: caffeineLevel,
-                                              cupSize: cupSize
+                                              cupSize: cupSize,
+                                timeOfDay: CoffeeController.getTimeOfDay(), activityLevel: "Sedentary", isCalorieConscious: true
                                           )
                       }) {
                           Text("Find My Brew")
