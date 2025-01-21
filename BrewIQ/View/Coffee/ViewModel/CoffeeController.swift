@@ -38,7 +38,6 @@ class CoffeeController  {
            } else {
                result = "Mocha with Whipped Cream"
            }
-        print(Date.now)
            
            if cupSize == "Large (500mL)" {
                result += " (Large Size)"

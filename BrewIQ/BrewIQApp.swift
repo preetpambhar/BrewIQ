@@ -25,9 +25,9 @@ struct BrewIQApp: App {
 
     var body: some Scene {
         WindowGroup {
-            //ContentView()
+            ContentView()
            // CoffeeView()
-            HomeView()
+           // HomeView()
             
         }
         .modelContainer(for: [CoffeeModel.self])
