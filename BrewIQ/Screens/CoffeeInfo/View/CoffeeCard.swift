@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct CoffeeCard: View {
+    let coffeeInfo: CoffeeInfoViewModel
     var body: some View {
         VStack(alignment: .leading){
-            Image("coffee")
+            Image(coffeeInfo.image)
                 .resizable()
                 .frame(width: 150, height: 150)
                 .scaledToFit()
-                .border(Color.gray, width: 2)
-                .shadow(radius: 2)
+                //.border(Color.gray, width: 2)
+                .shadow(color: Color.black.opacity(0.2), radius: 10)
                 .cornerRadius(15)
             
             VStack (alignment: .leading){
-                Text("Coffee Name")
+                Text(coffeeInfo.coffeeName)
                     .font(.headline)
                     .fontWeight(.semibold)
             }
@@ -37,5 +38,5 @@ struct CoffeeCard: View {
 }
 
 #Preview {
-    CoffeeCard()
+    CoffeeCard(coffeeInfo: CoffeeInfoViewModel.dummyData)
 }
