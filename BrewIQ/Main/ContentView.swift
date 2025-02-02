@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $activeTab){
-            Home()
+            LoginView()
                 .tag(Tab.home)
                 .tabItem { Tab.home.tabContent }
             
