@@ -32,11 +32,13 @@ struct BrewIQApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @StateObject private var authViewModel = AuthViewModel()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-            
+                .environmentObject(authViewModel)
         }
         .modelContainer(for: [CoffeeModel.self])
     }

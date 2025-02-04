@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 
 struct HomeView: View {
+        @EnvironmentObject var authViewModel : AuthViewModel
     // States for user input
         @State private var selectedMood: String = "😊 Relaxed"
         @State private var caffeineLevel: Double = 50 // Default caffeine level
@@ -28,11 +29,13 @@ struct HomeView: View {
                       // Welcome Header
           
             VStack {
-                Text(CoffeeController.getGreeting())
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    
+                if let currentUser = authViewModel.currentUser{
+                    Text(CoffeeController.getGreeting() + currentUser.userName)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                }
+                
                 Text("What’s your coffee mood today?")
                     .font(.title2)
                     .fontWeight(.semibold)
@@ -114,8 +117,15 @@ struct HomeView: View {
                                .padding()
                        }
                       Spacer()
-                  }
+            
+            if authViewModel.currentUser != nil{
+                Button ("Sign Out"){
+                   authViewModel.signOut()
+                }
+            }
+        }
                   .navigationTitle("BrewIQ")
+                  
     }
 }
 

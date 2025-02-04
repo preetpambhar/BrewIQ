@@ -53,4 +53,16 @@ final class AuthViewModel: ObservableObject {
             isError = true
         }
     }
+    
+    func signOut(){
+        do{
+            currentUser = nil
+            userSession = nil
+            try auth.signOut()
+        }
+        catch{
+            isError = true 
+        }
+    }
 }
+

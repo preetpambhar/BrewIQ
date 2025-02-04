@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
-    @StateObject private var authViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel : AuthViewModel
     
     var body: some View {
           NavigationStack {
@@ -66,7 +66,7 @@ struct LoginView: View {
                     .foregroundStyle(.gray)
                     //AppleID
                     Button {
-                        
+                       
                     } label: {
                         Label("Sign up with Apple", systemImage: "apple.logo")
                     }
@@ -90,6 +90,7 @@ struct LoginView: View {
                     
                     NavigationLink {
                         CreateAccountView()
+                            .environmentObject(authViewModel)
                     } label: {
                         Text("Don't have an account?")
                             .foregroundStyle(.black)

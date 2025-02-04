@@ -10,20 +10,29 @@ import SwiftData
 
 struct ContentView: View {
     @State private var activeTab: Tab = .home
+    @EnvironmentObject var authViewModel : AuthViewModel
     
     var body: some View {
         TabView(selection: $activeTab){
-            LoginView()
-                .tag(Tab.home)
-                .tabItem { Tab.home.tabContent }
-            
-            CoffeeInfo()
-                .tag(Tab.coffeeInfo)
-                .tabItem { Tab.coffeeInfo.tabContent }
-            
-            UserProfile()
-                .tag(Tab.userProfile)
-                .tabItem { Tab.userProfile.tabContent }
+            Group{
+                if authViewModel.userSession == nil{
+                    LoginView()
+                }
+                else {
+                    HomeView()
+                        .tag(Tab.home)
+                        .tabItem { Tab.home.tabContent }
+                    
+                    CoffeeInfo()
+                        .tag(Tab.coffeeInfo)
+                        .tabItem { Tab.coffeeInfo.tabContent }
+                    
+                    UserProfile()
+                        .tag(Tab.userProfile)
+                        .tabItem { Tab.userProfile.tabContent }
+                }
+            }
+            .environmentObject(authViewModel)
         }
     }
 }
