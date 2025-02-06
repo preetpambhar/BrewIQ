@@ -102,6 +102,7 @@ struct LoginView: View {
             .ignoresSafeArea()
             .padding(.horizontal)
             .padding(.vertical, 8)
+            .alert("Something went wrong", isPresented: $authViewModel.isError){}
         }
        // .background(Color.black)
 //        .background(
@@ -138,4 +139,5 @@ struct CapsuleButtonStyle: ButtonStyle{
 
 #Preview {
     LoginView()
+        .environmentObject(AuthViewModel())
 }
