@@ -16,12 +16,13 @@ struct LoginView: View {
           NavigationStack {
                 ScrollView {
                 VStack(spacing: 16) {
+                    
                     Image("CoffeeBanner")
                         .resizable()
                         .scaledToFill()
-                    // .frame(height: 400)
-                    
-                    
+                        .frame(height: 200)
+                        .cornerRadius(10)
+                        
                     Text("Let's Connect with US!")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -34,8 +35,8 @@ struct LoginView: View {
                     //Forgot Password Button
                     HStack{
                         Spacer()
-                        Button {
-                           
+                        NavigationLink {
+                            ForgotPassword()
                         } label: {
                             Text("Forgot Password?")
                                 .foregroundStyle(.gray)
@@ -86,7 +87,7 @@ struct LoginView: View {
                     }
                     .buttonStyle(CapsuleButtonStyle(bgColor: .clear, textColor: .black, hasBorder: true))
                     
-                    //Forgot password
+                    //Create account
                     
                     NavigationLink {
                         CreateAccountView()
