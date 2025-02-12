@@ -88,5 +88,13 @@ final class AuthViewModel: ObservableObject {
     private func deleteUser(by uid: String){
          firestore.collection("users").document(uid).delete()
     }
+    
+    func resetPassword(by email: String) async {
+        do{
+            try await  auth.sendPasswordReset(withEmail: email)
+        } catch{
+            isError = true
+        }
+    }
 }
 
