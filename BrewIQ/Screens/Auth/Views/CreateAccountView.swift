@@ -14,6 +14,7 @@ struct CreateAccountView: View {
     @State private var confirmPassword: String = ""
     @EnvironmentObject var authViewModel : AuthViewModel
     @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -47,7 +48,7 @@ struct CreateAccountView: View {
                         }
                     }
                 } label: {
-                    Text("OK")
+                    Text("Confirm")
                 }
                 .buttonStyle(CapsuleButtonStyle(bgColor:.indigo, textColor: .black))
             }
