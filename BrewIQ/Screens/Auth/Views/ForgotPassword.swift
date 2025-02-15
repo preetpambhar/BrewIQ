@@ -2,8 +2,8 @@
 
 struct ForgotPassword: View {
     @State private var email: String = ""
-    @State var isEmailSent: Bool = false
     @EnvironmentObject var authViewModel : AuthViewModel
+    @EnvironmentObject var router: Router
     
     var body: some View {
         VStack (alignment: .leading){
@@ -22,7 +22,7 @@ struct ForgotPassword: View {
                 Task {
                     await authViewModel.resetPassword(by: email)
                     if !authViewModel.isError{
-                        isEmailSent = true
+                        router.navigate(to: .emailSend)
                     }
                 }
             } label: {
@@ -33,9 +33,6 @@ struct ForgotPassword: View {
         }
         .padding()
         .toolbarRole(.editor )
-        .navigationDestination(isPresented: $isEmailSent){
-             EmailSendView()
-        }
         .onAppear {
             email = ""
         }

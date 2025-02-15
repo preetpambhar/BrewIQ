@@ -13,10 +13,9 @@ struct CreateAccountView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @EnvironmentObject var authViewModel : AuthViewModel
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var router: Router
     
     var body: some View {
-        NavigationStack{
             VStack{
                 Text("Please Complete all informationto create an account.")
                     .font(.headline).fontWeight(.medium)
@@ -44,7 +43,7 @@ struct CreateAccountView: View {
                     Task{
                         await authViewModel.createUser(name: fullName, email: email, password: password)
                         if !authViewModel.isError{
-                            presentationMode.wrappedValue.dismiss()
+                            router.navigationBack()
                         }
                     }
                 } label: {
@@ -52,7 +51,6 @@ struct CreateAccountView: View {
                 }
                 .buttonStyle(CapsuleButtonStyle(bgColor:.indigo, textColor: .black))
             }
-        }
         .navigationTitle("Set up your Account")
         .toolbarRole(.editor)
         .padding()

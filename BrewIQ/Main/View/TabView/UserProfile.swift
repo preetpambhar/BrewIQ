@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserProfile: View {
     @EnvironmentObject var authViewModel : AuthViewModel
+    @EnvironmentObject var router: Router
     
     var body: some View {
         if let user = authViewModel.currentUser {

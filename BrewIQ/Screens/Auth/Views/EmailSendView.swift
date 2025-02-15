@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EmailSendView: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var router: Router
     
     var body: some View {
         VStack(alignment: .center){
@@ -26,7 +26,7 @@ struct EmailSendView: View {
                     .frame(alignment: .center)
             }
             Button {
-               
+                router.navigationToRoot()
             } label: {
                 Text("Skip, I'll confirm later")
             }
@@ -35,7 +35,7 @@ struct EmailSendView: View {
             
             Spacer()
             Button {
-                dismiss()
+                router.navigationBack()
             } label: {
                ( Text("Did not receive the email ? Check your spam filter, or ")
                 .foregroundStyle(Color.gray)

@@ -19,7 +19,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct BrewIQApp: App {
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate 
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @ObservedObject private var router = Router()
+    
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -37,8 +40,20 @@ struct BrewIQApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack(path: $router.navPath){
+                ContentView()
+                    .navigationDestination(for: Router.AuthFlow.self) { destination in
+                        switch destination{
+                        case .login: LoginView()
+                        case .createAccount: CreateAccountView()
+                        case .forgotPassword: ForgotPassword()
+                        case .emailSend: EmailSendView()
+                        case .profile: UserProfile()
+                        }
+                    }
+            }
                 .environmentObject(authViewModel)
+                .environmentObject(router)
         }
         .modelContainer(for: [CoffeeModel.self])
     }
