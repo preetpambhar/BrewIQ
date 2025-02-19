@@ -15,13 +15,14 @@ struct HomeView: View {
         @State private var caffeineLevel: Double = 50 // Default caffeine level
         @State private var cupSize: String = "Medium (350mL)"
         @State private var coffeeSuggestion: String = ""
+        @State var userCalories: Double?
    
         
         // Mood options
         let moods = ["😊 Relaxed", "😴 Tired", "🤔 Focused", "😄 Happy", "😌 Calm"]
         let cupSizes = ["Small (200mL)", "Medium (350mL)", "Large (500mL)"]
         let coffeeController = CoffeeController()
-    
+        let healthManager = HealthManager()
         
     
     var body: some View {
@@ -52,8 +53,19 @@ struct HomeView: View {
                                     .multilineTextAlignment(.center)
                             }
                         }
+                    
                         Spacer()
-                        
+                        VStack(alignment: .leading){
+                            Text("Calories ")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                            
+                            Text("🔥 \(String(format: "%.1f", userCalories ?? 0.0))")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                        }
                     }
                     if let currentUser = authViewModel.currentUser{
                         Text(CoffeeController.getGreeting() + currentUser.userName)
@@ -135,13 +147,15 @@ struct HomeView: View {
                         cupSize: cupSize,
                         timeOfDay: CoffeeController.getTimeOfDay(), activityLevel: "Sedentary", isCalorieConscious: true
                     )
+                    
+                    healthManager.getCalories{calories in
+                        userCalories = calories
+                     }
                 }) {
                     Text("Find My Brew")
                 }
                 .buttonStyle(CapsuleButtonStyle())
                 .padding(.horizontal)
-                
-                
                 if !coffeeSuggestion.isEmpty {
                     Text("Suggested Coffee: \(coffeeSuggestion)")
                         .font(.headline)
@@ -156,9 +170,14 @@ struct HomeView: View {
                 //            }
             }
             .navigationTitle("BrewIQ")
+        }.onAppear{
+           healthManager.getCalories{calories in
+               userCalories = calories
+            }
         }
     }
 }
+
 
 #Preview {
     HomeView()
