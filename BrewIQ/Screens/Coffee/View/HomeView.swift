@@ -30,8 +30,8 @@ struct HomeView: View {
             VStack(spacing: 15) {
                 // Welcome Header
                 VStack {
-                    HStack{
-                        Image("coffee1")
+                    HStack(alignment: .top){
+                        Image("coffee2")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 60, height: 60)
@@ -55,7 +55,7 @@ struct HomeView: View {
                         }
                     
                         Spacer()
-                        VStack(alignment: .leading){
+                        VStack(alignment: .leading, spacing: -5){
                             Text("Calories ")
                                 .font(.title3)
                                 .fontWeight(.semibold)
@@ -65,7 +65,7 @@ struct HomeView: View {
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.center)
-                        }
+                        }.padding(.top, 3)
                     }
                     if let currentUser = authViewModel.currentUser{
                         Text(CoffeeController.getGreeting() + currentUser.userName)
